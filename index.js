@@ -3,12 +3,12 @@ require('dotenv').config()
 const express = require('express')
 
 const mongoose = require('mongoose')
-const cors = require('cors')
+// const cors = require('cors')
 
 const app = express()
 
 app.use(express.static('dist'))
-app.use(cors())
+// app.use(cors())
 
 const blogSchema = mongoose.Schema({
   title: String,
@@ -54,20 +54,20 @@ app.post('/api/blogs', (request, response) => {
   })
 })
 
-app.put('/api/blogs/:id', (request, response, next)=>{
+app.put('/api/blogs/:id', (request, response, next) => {
   const { title, author, url, likes } = request.body
-  
+
   Blog.findById(request.params.id)
     .then(blog => {
       if (!blog) {
         return response.status(404).json({ error: 'Blog not found' })
       }
-      
+
       blog.title = title
       blog.author = author
       blog.url = url
       blog.likes = likes
-      
+
       return blog.save()
     })
     .then(updatedBlog => {
@@ -76,8 +76,8 @@ app.put('/api/blogs/:id', (request, response, next)=>{
     .catch(error => next(error))
 })
 
-app.delete('/api/blogs/:id', (request, response, next)=>{
-  Blog.findByIdAndDelete(request.params.id).then(()=> response.status(200).end()).catch(error =>{
+app.delete('/api/blogs/:id', (request, response, next) => {
+  Blog.findByIdAndDelete(request.params.id).then(() => response.status(200).end()).catch(error => {
     next(error)
   })
 })
