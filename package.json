@@ -9,17 +9,17 @@
   "scripts": {
     "start": "node index.js",
     "dev": "node --watch index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --test",
     "build:ui": "rm -rf dist && cd ../fso-part4-bloglist-frontend/ && npm run build && cp -r dist ../fso-part4-bloglist-backend",
     "deploy": "fly deploy",
     "deploy:full": "npm run build:ui && npm run deploy",
     "logs:prod": "fly logs",
     "lint": "eslint ."
-
   },
   "dependencies": {
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "lodash": "^4.17.21",
     "mongoose": "^8.19.1"
   },
   "devDependencies": {
